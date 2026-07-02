@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | TNB Asset Management</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/favicon.png">
+  <script src="css/theme-init.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="css/app.css">
+  <script src="css/tailwind-config.js"></script>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-red-600 selection:text-white" data-page="login">
+
+  <header class="sticky top-0 z-50 shadow-xl border-b border-slate-800" style="background-color: #005EA6;">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a id="logoHomeLink" href="index.html" class="flex items-center space-x-3 cursor-pointer">
+        <div class="bg-white px-2.5 py-1.5 rounded-xl flex items-center justify-center shadow-md h-12">
+          <img src="assets/images/tnb-logo.png" alt="Tenaga Nasional Berhad" class="h-9 w-auto object-contain">
+        </div>
+        <div class="border-l border-white/25 pl-3">
+          <h1 class="text-white font-extrabold text-xs md:text-sm tracking-wide leading-tight uppercase">Asset Management System</h1>
+          <p class="text-blue-100 text-[10px] uppercase font-bold tracking-widest">TNB Penang Branch</p>
+        </div>
+      </a>
+      <div class="flex items-center space-x-4">
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition" title="Switch theme" aria-label="Switch theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <div id="navGuestGroup" class="flex items-center space-x-3">
+          <a href="login.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-right-to-bracket text-[10px]"></i> Login / Register
+          </a>
+        </div>
+        <div id="navAuthGroup" class="hidden flex items-center space-x-3">
+          <a id="adminPanelBtn" href="admin.html" class="hidden px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition items-center gap-2">
+            <i class="fa-solid fa-gear"></i> Admin Panel
+          </a>
+          <div class="flex items-center space-x-2.5 border-l border-white/20 pl-3.5">
+            <div class="text-right hidden sm:block">
+              <p id="navUsername" class="text-white font-black text-xs leading-none">TNB Staff</p>
+              <span id="navRole" class="text-blue-200 text-[9px] font-bold tracking-widest uppercase">Field Worker</span>
+            </div>
+            <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-red-600/10 text-red-400 hover:bg-red-600 hover:text-white transition cursor-pointer" title="Log Out Session">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 space-y-2.5 pointer-events-none"></div>
+
+  
+
+  <main class="flex-grow">
+
+    <section id="gatewayPage" class="max-w-md mx-auto my-10 px-4">
+      <div class="glass-panel p-8 rounded-2xl border-slate-800 shadow-2xl">
+        <div class="flex flex-col items-center mb-6 pb-6 border-b border-slate-800">
+          <img src="assets/images/tnb-logo.png" alt="Tenaga Nasional Berhad" class="h-24 sm:h-28 w-auto max-w-full object-contain mb-4">
+          <h2 class="text-lg font-bold text-slate-100">Asset Management System</h2>
+          <p class="text-xs text-slate-400 mt-1">TNB Penang Branch</p>
+        </div>
+        
+        <div class="flex border-b border-slate-800 mb-6">
+          <button id="tabLogin" onclick="switchGatewayTab('login')" class="flex-1 pb-3 text-sm font-bold border-b-2 border-[#005EA6] text-slate-100 transition">Login</button>
+          <button id="tabRegister" onclick="switchGatewayTab('register')" class="flex-1 pb-3 text-sm font-semibold text-slate-400 border-b-2 border-transparent hover:text-slate-600 transition">Register</button>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4 block">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Staff ID</label>
+            <input id="loginStaffId" type="text" required placeholder="Your TNB staff ID" class="w-full px-4 py-3 rounded-lg text-sm glass-input text-slate-100">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Password</label>
+            <input id="loginPassword" type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-lg text-sm glass-input text-slate-100">
+          </div>
+          <button type="submit" class="w-full py-3 bg-[#005EA6] hover:bg-blue-600 text-white font-bold text-sm rounded-lg transition mt-1 flex items-center justify-center gap-2">
+            Sign In <i class="fa-solid fa-chevron-right text-xs"></i>
+          </button>
+          <p class="text-[11px] text-slate-500 text-center pt-2">New staff? Switch to Register and wait for admin approval.</p>
+        </form>
+
+        <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="space-y-4 hidden">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Full Name</label>
+            <input id="registerName" type="text" required placeholder="Ahmad Bin Ridzuan" class="w-full px-4 py-3 rounded-lg text-sm glass-input text-slate-100">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Staff ID</label>
+            <input id="registerStaffId" type="text" required placeholder="e.g. 10123456" class="w-full px-4 py-3 rounded-lg text-sm glass-input text-slate-100">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Role</label>
+            <select id="registerRole" class="w-full px-4 py-3 rounded-lg text-sm glass-input text-slate-100 bg-slate-950">
+              <option value="FIELD_WORKER">Field Worker</option>
+              <option value="ADMIN">Administrator</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Password</label>
+            <input id="registerPassword" type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-lg text-sm glass-input text-slate-100">
+          </div>
+          <button type="submit" class="w-full py-3 bg-[#005EA6] hover:bg-blue-600 text-white font-bold text-sm rounded-lg transition mt-1">Submit Registration</button>
+          <p class="text-[11px] text-slate-500 bg-slate-950/50 border border-slate-800 rounded-lg p-3 leading-relaxed">
+            Your account will stay inactive until an administrator approves it.
+          </p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-850 text-center py-6 px-4 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-[10px] text-slate-500 text-left">&copy; 2026 Tenaga Nasional Berhad (TNB) - ASSET MANAGEMENT SYSTEM by TNB PENANG. Restricted Access Only.</p>
+      <div class="flex space-x-3 text-[10px] text-slate-400">
+        <span class="text-slate-500">Centralized Audit Node</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-500">Dual-Engine Sync</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-500">v3.1 Production</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.bundle.js"></script>
+</body>
+</html>

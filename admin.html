@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | TNB Asset Management</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/favicon.png">
+  <script src="css/theme-init.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="css/app.css">
+  <script src="css/tailwind-config.js"></script>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-red-600 selection:text-white" data-page="admin">
+
+  <header class="sticky top-0 z-50 shadow-xl border-b border-slate-800" style="background-color: #005EA6;">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a id="logoHomeLink" href="index.html" class="flex items-center space-x-3 cursor-pointer">
+        <div class="bg-white px-2.5 py-1.5 rounded-xl flex items-center justify-center shadow-md h-12">
+          <img src="assets/images/tnb-logo.png" alt="Tenaga Nasional Berhad" class="h-9 w-auto object-contain">
+        </div>
+        <div class="border-l border-white/25 pl-3">
+          <h1 class="text-white font-extrabold text-xs md:text-sm tracking-wide leading-tight uppercase">Asset Management System</h1>
+          <p class="text-blue-100 text-[10px] uppercase font-bold tracking-widest">TNB Penang Branch</p>
+        </div>
+      </a>
+      <div class="flex items-center space-x-4">
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition" title="Switch theme" aria-label="Switch theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <div id="navGuestGroup" class="flex items-center space-x-3">
+          <a href="login.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-right-to-bracket text-[10px]"></i> Login / Register
+          </a>
+        </div>
+        <div id="navAuthGroup" class="hidden flex items-center space-x-3">
+          <a id="adminPanelBtn" href="admin.html" class="hidden px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition items-center gap-2">
+            <i class="fa-solid fa-gear"></i> Admin Panel
+          </a>
+          <div class="flex items-center space-x-2.5 border-l border-white/20 pl-3.5">
+            <div class="text-right hidden sm:block">
+              <p id="navUsername" class="text-white font-black text-xs leading-none">TNB Staff</p>
+              <span id="navRole" class="text-blue-200 text-[9px] font-bold tracking-widest uppercase">Field Worker</span>
+            </div>
+            <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-red-600/10 text-red-400 hover:bg-red-600 hover:text-white transition cursor-pointer" title="Log Out Session">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 space-y-2.5 pointer-events-none"></div>
+
+  
+  <div id="adminTabNav" class="hidden w-full no-print border-b border-slate-800/80 bg-slate-950/70">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <nav class="app-nav app-nav-wide">
+        <a id="btnTabField" href="dashboard.html" class="app-nav-btn">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span>Field Desk</span>
+        </a>
+        <a id="btnTabAdmin" href="admin.html" class="app-nav-btn">
+          <i class="fa-solid fa-gear"></i>
+          <span>Admin Panel</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+
+  <main class="flex-grow">
+
+    <section id="adminPageSection" class="max-w-7xl mx-auto px-4 py-6">
+      
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-white">Admin Panel</h2>
+        <p class="text-sm text-slate-400 mt-0.5">Approve users, import asset lists, export reports.</p>
+      </div>
+
+      <div class="space-y-6">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          
+          <div class="glass-panel p-5 rounded-xl">
+            <h4 class="text-sm font-bold text-slate-200 mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-user-check text-blue-500"></i> Pending User Approvals
+            </h4>
+            <p class="text-xs text-slate-500 mb-4">New registrations waiting for approval.</p>
+            <div id="userVerificationQueue" class="space-y-2 max-h-[220px] overflow-y-auto">
+              </div>
+          </div>
+
+          <div class="glass-panel p-5 rounded-xl">
+            <h4 class="text-sm font-bold text-slate-200 mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-file-csv text-emerald-500"></i> Import Asset List
+            </h4>
+            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+              Upload the <strong class="text-slate-300">Asset Tagging Apr 2026</strong> file (.csv or .xlsx).
+              Only Penang / Pulau Pinang rows are imported.
+            </p>
+
+            <div class="relative border-2 border-dashed border-slate-700 rounded-lg p-8 text-center hover:border-[#005EA6] transition cursor-pointer">
+              <input id="csvFileInput" type="file" accept=".csv,.xlsx,.xls" onchange="handleCsvUpload(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+              
+              <div class="flex flex-col items-center space-y-2 pointer-events-none">
+                <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-500"></i>
+                <span class="text-sm font-semibold text-slate-300">Choose CSV or Excel file</span>
+                <span class="text-xs text-slate-500">Asset Tagging Apr 2026 format</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="glass-panel p-5 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h4 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+              <i class="fa-solid fa-file-export text-[#005EA6]"></i> Export Updated Asset List
+            </h4>
+            <p class="text-xs text-slate-500 mt-1">Download current Penang asset data as CSV (columns A–AI).</p>
+          </div>
+          <button onclick="exportMotherFile()" class="px-5 py-2.5 bg-[#005EA6] hover:bg-blue-600 text-white rounded-lg font-semibold text-sm transition flex items-center gap-2 whitespace-nowrap">
+            <i class="fa-solid fa-download"></i> Export CSV
+          </button>
+        </div>
+
+        <div class="glass-panel p-5 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
+            <h4 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+              <i class="fa-solid fa-clock-rotate-left text-slate-500"></i> Activity Log
+            </h4>
+            <input id="auditLogSearch" type="text" oninput="renderAuditLogs()" placeholder="Filter by user or action..." class="px-3 py-1.5 text-xs rounded-lg bg-slate-900 border border-slate-800 focus:outline-none focus:border-[#005EA6] text-slate-300 w-full sm:w-56">
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-400">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-500 uppercase">
+                  <th class="pb-2 pr-4 font-semibold">Time</th>
+                  <th class="pb-2 pr-4 font-semibold">User</th>
+                  <th class="pb-2 pr-4 font-semibold">Action</th>
+                  <th class="pb-2 font-semibold">Details</th>
+                </tr>
+              </thead>
+              <tbody id="auditLogTableBody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-850 text-center py-6 px-4 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-[10px] text-slate-500 text-left">&copy; 2026 Tenaga Nasional Berhad (TNB) - ASSET MANAGEMENT SYSTEM by TNB PENANG. Restricted Access Only.</p>
+      <div class="flex space-x-3 text-[10px] text-slate-400">
+        <span class="text-slate-500">Centralized Audit Node</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-500">Dual-Engine Sync</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-500">v3.1 Production</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.bundle.js"></script>
+</body>
+</html>
