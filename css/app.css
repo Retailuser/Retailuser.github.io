@@ -1,0 +1,267 @@
+    body {
+      background-color: #05070C;
+      color: #F3F4F6;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-input {
+      background: rgba(7, 10, 19, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease-in-out;
+    }
+    .glass-input:focus {
+      border-color: #005EA6;
+      box-shadow: 0 0 0 2px rgba(0, 94, 166, 0.25);
+    }
+
+    /* ---------- Light theme ---------- */
+    html.light { color-scheme: light; }
+
+    html.light body {
+      background-color: #F1F5F9;
+      color: #0F172A;
+    }
+    html.light .glass-panel {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    html.light .glass-input {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: #0F172A;
+    }
+    html.light .glass-input:focus {
+      border-color: #005EA6;
+      box-shadow: 0 0 0 2px rgba(0, 94, 166, 0.2);
+    }
+
+    html.light .bg-slateDark,
+    html.light .bg-slate-950,
+    html.light [class*="bg-slate-950/"] { background-color: #FFFFFF !important; }
+    html.light .bg-slate-900,
+    html.light [class*="bg-slate-900/"] { background-color: #F8FAFC !important; }
+    html.light .bg-slate-800,
+    html.light .bg-slate-700 { background-color: #E2E8F0 !important; }
+    html.light .hover\:bg-slate-850:hover { background-color: #E2E8F0 !important; }
+    html.light .hover\:bg-slate-800:hover { background-color: #E2E8F0 !important; }
+
+    html.light .text-slate-100 { color: #1E293B !important; }
+    html.light .text-slate-200 { color: #1E293B !important; }
+    html.light .text-slate-300 { color: #334155 !important; }
+    html.light .text-slate-400 { color: #475569 !important; }
+    html.light .text-slate-500 { color: #64748B !important; }
+    html.light .text-slate-600 { color: #64748B !important; }
+    html.light .text-slate-700 { color: #475569 !important; }
+
+    html.light .border-slate-700,
+    html.light .border-slate-800,
+    html.light .border-slate-850,
+    html.light .border-slate-855,
+    html.light .border-slate-900 { border-color: #E2E8F0 !important; }
+    html.light .hover\:border-slate-750:hover { border-color: #CBD5E1 !important; }
+
+    html.light .from-slate-950 { --tw-gradient-from: #FFFFFF var(--tw-gradient-from-position); --tw-gradient-to: rgba(255,255,255,0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    html.light .to-slateDark { --tw-gradient-to: #EEF2F7 var(--tw-gradient-to-position); }
+
+    /* Headings on light surfaces */
+    html.light main h2.text-white,
+    html.light main h3.text-white,
+    html.light main h4.text-white,
+    html.light .glass-panel h2.text-white,
+    html.light .glass-panel h4.text-white,
+    html.light .glass-panel .font-bold.text-white:not(button):not(a),
+    html.light #statPercent.text-white { color: #0F172A !important; }
+
+    /* Keep white text on coloured buttons, badges & header */
+    html.light header,
+    html.light header * { color: inherit; }
+    html.light header .text-white,
+    html.light header h1,
+    html.light header p.text-blue-100,
+    html.light header span.text-blue-200,
+    html.light header button { color: #FFFFFF !important; }
+    html.light button[class*="bg-[#005EA6]"],
+    html.light button[class*="bg-[#005EA6]"] *,
+    html.light .glass-panel button[class*="bg-[#005EA6]"],
+    html.light .glass-panel button[class*="bg-[#005EA6]"] *,
+    html.light button[class*="bg-red-6"],
+    html.light button[class*="bg-emerald-6"],
+    html.light button[class*="bg-blue-6"],
+    html.light button[class*="bg-indigo-6"],
+    html.light button[class*="bg-indigo-7"],
+    html.light a[class*="bg-[#005EA6]"],
+    html.light span[class*="bg-blue-6"].text-white,
+    html.light span[class*="bg-indigo-6"].text-white,
+    html.light span[class*="bg-indigo-7"].text-white,
+    html.light span[class*="bg-[#ED1C24]"].text-white,
+    html.light #btnTabField.bg-\[\#005EA6\],
+    html.light #btnTabAdmin.bg-\[\#005EA6\] { color: #FFFFFF !important; }
+
+    /* Tinted info boxes */
+    html.light [class*="bg-blue-950"] { background-color: #EFF6FF !important; }
+    html.light [class*="bg-blue-900"] { background-color: #DBEAFE !important; }
+    html.light [class*="border-blue-9"] { border-color: #BFDBFE !important; }
+    html.light .text-blue-200 { color: #1D4ED8 !important; }
+    html.light .text-blue-300 { color: #1E40AF !important; }
+    html.light .text-blue-400 { color: #2563EB !important; }
+    html.light [class*="bg-amber-950"] { background-color: #FFFBEB !important; }
+    html.light [class*="border-amber-9"] { border-color: #FDE68A !important; }
+    html.light .text-amber-300 { color: #B45309 !important; }
+    html.light .text-amber-400 { color: #D97706 !important; }
+    html.light .text-indigo-300,
+    html.light .text-indigo-400 { color: #4338CA !important; }
+    html.light .text-emerald-400,
+    html.light .text-accentTeal { color: #059669 !important; }
+    html.light .text-red-400 { color: #DC2626 !important; }
+
+    html.light input,
+    html.light select,
+    html.light textarea { color: #0F172A !important; }
+    html.light input::placeholder,
+    html.light textarea::placeholder { color: #94A3B8 !important; }
+
+    html.light ::-webkit-scrollbar-track { background: #E2E8F0; }
+    html.light ::-webkit-scrollbar-thumb { background: #94A3B8; }
+
+    html.light .app-nav { background: #FFFFFF; border-bottom-color: #E2E8F0; }
+
+    html.light #adminPanelBtn {
+      background-color: rgba(255,255,255,0.15) !important;
+      border-color: rgba(255,255,255,0.3) !important;
+      color: #FFFFFF !important;
+    }
+
+    html.light #printStickerLayout { background: #fff; color: #000; }
+
+    /* App navigation tabs */
+    .app-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid #1E293B;
+      background: transparent;
+    }
+    .app-nav-wide {
+      gap: 0.75rem;
+      padding: 0.35rem;
+      border-bottom: none;
+      border-radius: 1rem;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+    }
+    html.light .app-nav-wide {
+      background: #F8FAFC;
+      border-color: #E2E8F0;
+    }
+    html.light .app-nav { border-bottom-color: #E2E8F0; }
+    .app-nav-btn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      color: #64748B;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      text-decoration: none;
+    }
+    .app-nav-wide .app-nav-btn {
+      min-height: 3.25rem;
+      padding: 1rem 1.5rem;
+      margin-bottom: 0;
+      border-bottom: none;
+      border-radius: 0.75rem;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .app-nav-wide .app-nav-btn i {
+      font-size: 1.05rem;
+    }
+    .app-nav-btn:hover { color: #CBD5E1; background: rgba(255,255,255,0.04); }
+    html.light .app-nav-btn { color: #64748B; }
+    html.light .app-nav-btn:hover { color: #0F172A; background: #F1F5F9; }
+    .app-nav-btn.active {
+      color: #FFFFFF;
+      border-bottom-color: #005EA6;
+      background: rgba(0, 94, 166, 0.15);
+    }
+    .app-nav-wide .app-nav-btn.active {
+      color: #FFFFFF;
+      background: linear-gradient(180deg, rgba(0, 94, 166, 0.35) 0%, rgba(0, 94, 166, 0.2) 100%);
+      box-shadow: inset 0 0 0 1px rgba(0, 94, 166, 0.45);
+    }
+    html.light .app-nav-btn.active {
+      color: #005EA6;
+      border-bottom-color: #005EA6;
+      background: #EFF6FF;
+      font-weight: 700;
+    }
+    html.light .app-nav-wide .app-nav-btn.active {
+      color: #005EA6;
+      background: #DBEAFE;
+      box-shadow: inset 0 0 0 1px rgba(0, 94, 166, 0.25);
+    }
+    @keyframes priority-glow {
+      0%, 100% { box-shadow: 0 0 4px rgba(237, 28, 36, 0.2); border-color: rgba(237, 28, 36, 0.3); }
+      50% { box-shadow: 0 0 14px rgba(237, 28, 36, 0.5); border-color: rgba(237, 28, 36, 0.8); }
+    }
+    .priority-active {
+      animation: priority-glow 2.5s infinite ease-in-out;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.2);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    @media print {
+      html, body {
+        height: auto !important;
+        overflow: visible !important;
+        background: white !important;
+      }
+      body * {
+        visibility: hidden !important;
+      }
+      #printStickerLayout, #printStickerLayout * {
+        visibility: visible !important;
+      }
+      #printStickerLayout {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 350px !important;
+        margin: 0 !important;
+        padding: 16px !important;
+        border: 2px solid black !important;
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+      }
+      @page {
+        size: auto;
+        margin: 0mm;
+      }
+    }
